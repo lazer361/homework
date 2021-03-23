@@ -1,32 +1,28 @@
 <?php
-$arr = [
-   "Красный" =>  1,
-   "Синий" =>  2,
-   "Зеленый" =>  3,
-   "Черный" =>  4,
-   "Желтый" =>  5,
-   "Коричневый" =>  6,
-   "Розовый" =>  7,
-   "Фиолетовый" =>  8,
-   "Голубой" =>  9,
-   "Прозрачный" =>  10,
-];
-?>
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-<h1>Цвета массива: </h1>
-<?php
-foreach (  $arr as $key => $val ) {
-    echo "<div>{$val} - {$key}</div><br>" . PHP_EOL;
+ $text = preg_replace("/(?![=$'€%-])\p{P}/u", "", mb_strtolower("В город ворвалась зима. Еще вчера ветер гонял по улицам опавшие листья, моросил холодный дождь. Сегодня же с утра все белым-бело. За ночь снежная туча щедро поделилась снегом, который теперь искрился и переливался в лучах яркого утреннего солнца. Лицо прохожих, одетых в теплые шубы и пуховики, были по-детски радостными. Ребятишки же не скрывали свой восторг и громко радовались долгожданному снегу. Возле школ развернулись настоящие снежные баталии. Многие школьники, да и некоторые учителя оказались обстреляны снежками. У всех в этот день было радостное, приподнятое настроение. Зима вступила в свои владения, подарив людям ощущение сказки, волшебства."));
+ $length_char = iconv_strlen($text);
+
+ $words = explode(' ', $text);
+ $word_count = count($words);
+
+
+ $words_met = [];
+
+ echo $text."<br>";
+ echo "<br>Количество символов: ".$length_char;
+ echo "<br>Количество слов: ".$word_count."<br><br>";
+
+for ($i = 0; $i <= $word_count; $i++) {
+    $sum = 0;
+    for($j = 0; $j <= $word_count; $j++){
+        if($words[$i] === $words[$j]){
+            $sum++;
+            $words_met[$words[$j]] = $sum;
+        }
+    }
+}
+array_pop($words_met );
+foreach (  $words_met as $key => $val ) {
+    echo "{$key} : {$val} <br>" . PHP_EOL;
 }
 ?>
-</body>
-</html>
